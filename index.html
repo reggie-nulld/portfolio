@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reggie — Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Reggie — developer building clean, fast, future-facing software." />
+  <meta name="theme-color" content="#05060a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#top" class="logo" aria-label="Home"><span class="logo-mark">R</span><span class="logo-text">reggie<span class="accent">.dev</span></span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav-links">
+      <a href="#about"><span class="mono">01.</span> About</a>
+      <a href="#projects"><span class="mono">02.</span> Projects</a>
+      <a href="#skills"><span class="mono">03.</span> Skills</a>
+      <a href="#contact"><span class="mono">04.</span> Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <canvas id="network" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <p class="eyebrow mono"><span class="status-dot"></span> Available for new projects</p>
+        <h1 class="hero-title">
+          Hi, I'm <span class="gradient-text">Reggie</span>.<br />
+          I build <span class="typed" data-words="digital experiences.|fast web apps.|clean interfaces.|the future."></span><span class="caret"></span>
+        </h1>
+        <p class="hero-sub">Developer focused on crafting minimal, high-performance products where thoughtful design meets solid engineering.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View my work <span aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <a href="#about" class="scroll-hint mono" aria-label="Scroll down">scroll<span class="scroll-line"></span></a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="section-title reveal"><span class="mono accent">01.</span> About</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>I'm a developer who loves turning complex problems into simple, elegant interfaces. I care about the details — performance, accessibility, and the small interactions that make software feel alive.</p>
+          <p>Right now I'm exploring modern web tooling, creative coding, and building products that feel like they're from a few years ahead.</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat glass"><span class="stat-num" data-count="3">0</span><span class="stat-plus">+</span><span class="stat-label">Years coding</span></div>
+          <div class="stat glass"><span class="stat-num" data-count="20">0</span><span class="stat-plus">+</span><span class="stat-label">Projects shipped</span></div>
+          <div class="stat glass"><span class="stat-num" data-count="10">0</span><span class="stat-plus">+</span><span class="stat-label">Technologies</span></div>
+          <div class="stat glass"><span class="stat-num" data-count="100">0</span><span class="stat-plus">%</span><span class="stat-label">Curiosity</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <h2 class="section-title reveal"><span class="mono accent">02.</span> Selected Projects</h2>
+      <div class="projects">
+        <article class="card glass reveal">
+          <div class="card-top"><span class="mono card-index">P/01</span><a href="#" class="card-link" aria-label="Open project">↗</a></div>
+          <h3>Project Nebula</h3>
+          <p>A real-time analytics dashboard with live data streams, interactive charts, and a fully responsive layout.</p>
+          <ul class="tags mono"><li>React</li><li>TypeScript</li><li>WebSockets</li></ul>
+        </article>
+        <article class="card glass reveal">
+          <div class="card-top"><span class="mono card-index">P/02</span><a href="#" class="card-link" aria-label="Open project">↗</a></div>
+          <h3>Synthwave UI</h3>
+          <p>An open-source component library focused on accessibility, motion design, and dark-mode-first aesthetics.</p>
+          <ul class="tags mono"><li>CSS</li><li>Design Systems</li><li>a11y</li></ul>
+        </article>
+        <article class="card glass reveal">
+          <div class="card-top"><span class="mono card-index">P/03</span><a href="#" class="card-link" aria-label="Open project">↗</a></div>
+          <h3>Orbit API</h3>
+          <p>A scalable REST + GraphQL backend with auth, rate limiting, and automated deployments to the cloud.</p>
+          <ul class="tags mono"><li>Node.js</li><li>PostgreSQL</li><li>Docker</li></ul>
+        </article>
+        <article class="card glass reveal">
+          <div class="card-top"><span class="mono card-index">P/04</span><a href="#" class="card-link" aria-label="Open project">↗</a></div>
+          <h3>Pulse AI</h3>
+          <p>An AI-powered assistant that summarizes documents and answers questions with a clean chat interface.</p>
+          <ul class="tags mono"><li>Python</li><li>LLMs</li><li>FastAPI</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <h2 class="section-title reveal"><span class="mono accent">03.</span> Skills &amp; Stack</h2>
+      <div class="skills">
+        <div class="skill-group glass reveal">
+          <h3 class="mono">// frontend</h3>
+          <ul><li>HTML &amp; CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Next.js</li><li>Tailwind</li></ul>
+        </div>
+        <div class="skill-group glass reveal">
+          <h3 class="mono">// backend</h3>
+          <ul><li>Node.js</li><li>Python</li><li>REST / GraphQL</li><li>PostgreSQL</li><li>MongoDB</li></ul>
+        </div>
+        <div class="skill-group glass reveal">
+          <h3 class="mono">// tools</h3>
+          <ul><li>Git &amp; GitHub</li><li>Docker</li><li>Figma</li><li>Linux</li><li>CI / CD</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact reveal">
+      <p class="mono accent">04. What's next?</p>
+      <h2 class="contact-title">Let's build something <span class="gradient-text">extraordinary</span>.</h2>
+      <p class="contact-sub">My inbox is always open — whether it's a project, an opportunity, or just a hello.</p>
+      <a href="mailto:hello@example.com" class="btn btn-primary btn-lg">Say hello <span aria-hidden="true">→</span></a>
+      <div class="socials mono">
+        <a href="https://github.com/reggie-nulld" target="_blank" rel="noopener">GitHub</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" target="_blank" rel="noopener">X / Twitter</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>© <span id="year"></span> Reggie</span>
+    <span>Designed &amp; built with ⚡</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
