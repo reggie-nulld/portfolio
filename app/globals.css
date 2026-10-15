@@ -11,8 +11,8 @@
   --grad: linear-gradient(120deg, var(--cyan), var(--violet) 55%, var(--pink));
   --radius: 18px;
   --max: 1120px;
-  --font: "Space Grotesk", system-ui, -apple-system, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --font: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --mono: var(--font-mono), ui-monospace, monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -252,6 +252,7 @@ ul { list-style: none; }
     display: none; width: 100%; flex-direction: column; gap: 4px;
     padding-top: 14px; margin-top: 12px; border-top: 1px solid var(--line);
   }
+  .nav:has(.nav-links.open) { background: rgba(10, 12, 20, 0.96); }
   .nav-links.open { display: flex; }
   .nav-links a { padding: 10px 4px; }
   .section { padding: 90px 16px; }
