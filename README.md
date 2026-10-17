@@ -1,6 +1,6 @@
 # portfolio
 
-A minimal, single-page personal portfolio built with **Next.js** (App Router), React and TypeScript.
+A clean, futuristic personal portfolio built with **Next.js** (App Router), React and TypeScript.
 
 ## Getting started
 
@@ -13,7 +13,7 @@ npm start        # serve the production build
 
 ## Customize
 
-- **Content**: everything (name, bio, projects, stack, email, links) lives in `lib/data.ts`.
+- **Content**: everything (name, bio, stats, projects, skills, email, socials) lives in `lib/data.ts`.
 - **Colors / fonts**: CSS variables at the top of `app/globals.css`; fonts are loaded via `next/font` in `app/layout.tsx`.
 - **Favicon**: `app/icon.svg`.
 
@@ -21,7 +21,8 @@ npm start        # serve the production build
 
 ```
 app/          layout, page, global styles, icon
-lib/          site content (data.ts)
+components/   one component per section (Hero, About, Projects, Skills, Contact, …)
+lib/          site content (data.ts) and shared hooks
 ```
 
 ## Deploy

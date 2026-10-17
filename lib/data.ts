@@ -2,53 +2,78 @@
 
 export const profile = {
   name: "Reggie",
-  role: "Developer",
-  location: "Earth",
-  bio: [
-    "I build clean, fast software for the web. I care about the details: performance, accessibility, and interfaces that get out of the way.",
-    "Right now I'm exploring modern web tooling and shipping small products.",
-  ],
+  domain: "reggie.dev",
+  tagline:
+    "Developer focused on crafting minimal, high-performance products where thoughtful design meets solid engineering.",
+  typedWords: ["digital experiences.", "fast web apps.", "clean interfaces.", "the future."],
+  available: true,
   email: "hello@example.com",
+  about: [
+    "I'm a developer who loves turning complex problems into simple, elegant interfaces. I care about the details — performance, accessibility, and the small interactions that make software feel alive.",
+    "Right now I'm exploring modern web tooling, creative coding, and building products that feel like they're from a few years ahead.",
+  ],
 };
+
+export const stats = [
+  { value: 3, suffix: "+", label: "Years coding" },
+  { value: 20, suffix: "+", label: "Projects shipped" },
+  { value: 10, suffix: "+", label: "Technologies" },
+  { value: 100, suffix: "%", label: "Curiosity" },
+];
 
 export type Project = {
   title: string;
   description: string;
+  tags: string[];
   href: string;
-  year: string;
 };
 
 export const projects: Project[] = [
   {
     title: "Project Nebula",
-    description: "Real-time analytics dashboard with live data streams.",
+    description:
+      "A real-time analytics dashboard with live data streams, interactive charts, and a fully responsive layout.",
+    tags: ["React", "TypeScript", "WebSockets"],
     href: "#",
-    year: "2026",
   },
   {
     title: "Synthwave UI",
-    description: "Open-source component library focused on accessibility.",
+    description:
+      "An open-source component library focused on accessibility, motion design, and dark-mode-first aesthetics.",
+    tags: ["CSS", "Design Systems", "a11y"],
     href: "#",
-    year: "2025",
   },
   {
     title: "Orbit API",
-    description: "REST + GraphQL backend with auth and rate limiting.",
+    description:
+      "A scalable REST + GraphQL backend with auth, rate limiting, and automated deployments to the cloud.",
+    tags: ["Node.js", "PostgreSQL", "Docker"],
     href: "#",
-    year: "2025",
   },
   {
     title: "Pulse AI",
-    description: "Assistant that summarizes documents and answers questions.",
+    description:
+      "An AI-powered assistant that summarizes documents and answers questions with a clean chat interface.",
+    tags: ["Python", "LLMs", "FastAPI"],
     href: "#",
-    year: "2024",
   },
 ];
 
-export const stack = ["TypeScript", "React", "Next.js", "Node.js", "Python", "PostgreSQL", "Docker"];
+export const skills = [
+  { group: "frontend", items: ["HTML & CSS", "JavaScript", "TypeScript", "React", "Next.js", "Tailwind"] },
+  { group: "backend", items: ["Node.js", "Python", "REST / GraphQL", "PostgreSQL", "MongoDB"] },
+  { group: "tools", items: ["Git & GitHub", "Docker", "Figma", "Linux", "CI / CD"] },
+];
 
-export const links = [
+export const socials = [
   { label: "GitHub", href: "https://github.com/reggie-nulld" },
   { label: "LinkedIn", href: "#" },
-  { label: "X", href: "#" },
+  { label: "X / Twitter", href: "#" },
+];
+
+export const navLinks = [
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
