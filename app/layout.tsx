@@ -1,18 +1,14 @@
-import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { profile } from "@/lib/data";
 import "./globals.css";
 
-const sans = Space_Grotesk({ subsets: ["latin"], variable: "--font-sans" });
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono" });
+const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: `${profile.name} — Developer Portfolio`,
-  description: `Portfolio of ${profile.name} — developer building clean, fast, future-facing software.`,
-};
-
-export const viewport: Viewport = {
-  themeColor: "#05060a",
+  title: profile.name,
+  description: `${profile.name} — ${profile.role}. ${profile.bio[0]}`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
