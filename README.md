@@ -6,7 +6,7 @@ A clean, futuristic personal portfolio built with **Next.js** (App Router), Reac
 
 ```sh
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      # http://localhost:3001
 npm run build    # production build
 npm start        # serve the production build
 ```
@@ -14,7 +14,8 @@ npm start        # serve the production build
 ## Customize
 
 - **Content**: everything (name, bio, stats, projects, skills, email, socials) lives in `lib/data.ts`.
-- **Colors / fonts**: CSS variables at the top of `app/globals.css`; fonts are loaded via `next/font` in `app/layout.tsx`.
+- **Photo**: put your picture in `public/` (e.g. `public/me.jpg`) and set `avatar` in `lib/data.ts`.
+- **Colors / fonts**: the green accent palette is a few CSS variables at the top of `app/globals.css`; fonts are loaded via `next/font` in `app/layout.tsx`.
 - **Favicon**: `app/icon.svg`.
 
 ## Structure

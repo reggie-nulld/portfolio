@@ -56,7 +56,7 @@ export default function NetworkCanvas() {
           const q = pts[b];
           const d = Math.hypot(p.x - q.x, p.y - q.y);
           if (d < LINK_DIST) {
-            ctx.strokeStyle = `rgba(139, 92, 246, ${0.35 * (1 - d / LINK_DIST)})`;
+            ctx.strokeStyle = `rgba(64, 160, 112, ${0.35 * (1 - d / LINK_DIST)})`;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -65,13 +65,13 @@ export default function NetworkCanvas() {
         }
         const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
         if (md < MOUSE_DIST) {
-          ctx.strokeStyle = `rgba(34, 211, 238, ${0.5 * (1 - md / MOUSE_DIST)})`;
+          ctx.strokeStyle = `rgba(111, 207, 151, ${0.5 * (1 - md / MOUSE_DIST)})`;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
           ctx.stroke();
         }
-        ctx.fillStyle = "rgba(34, 211, 238, 0.85)";
+        ctx.fillStyle = "rgba(111, 207, 151, 0.8)";
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
         ctx.fill();

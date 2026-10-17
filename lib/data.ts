@@ -2,6 +2,8 @@
 
 export const profile = {
   name: "Reggie",
+  // Put your photo in /public and update this path (e.g. "/me.jpg").
+  avatar: "/avatar.svg",
   domain: "reggie.dev",
   tagline:
     "Developer focused on crafting minimal, high-performance products where thoughtful design meets solid engineering.",
