@@ -119,6 +119,7 @@ ul { list-style: none; }
   position: relative; min-height: 100vh; min-height: 100svh;
   display: flex; align-items: center; justify-content: center;
   padding: 120px 24px 80px;
+  overflow-x: clip;
 }
 #network { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.55; }
 .hero-inner {
@@ -126,7 +127,7 @@ ul { list-style: none; }
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 64px;
 }
 .hero-text { min-width: 0; }
-.hero-avatar { position: relative; width: clamp(220px, 24vw, 320px); aspect-ratio: 1; }
+.hero-avatar { position: relative; width: clamp(280px, 28vw, 340px); aspect-ratio: 1; }
 .avatar-img {
   width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
   border: 1px solid rgba(var(--accent-rgb), 0.35);
@@ -274,9 +275,13 @@ ul { list-style: none; }
   .nav-links a { padding: 10px 4px; }
   .section { padding: 90px 16px; }
   .hero { padding-left: 16px; padding-right: 16px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 36px; }
-  .hero-avatar { order: -1; width: 140px; }
-  .avatar-ring { inset: -8px; }
+  /* Stack as: badge, picture, then the rest of the text. */
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-text { display: contents; }
+  .hero-text > * { order: 2; }
+  .eyebrow { order: 0; justify-self: start; }
+  .hero-avatar { order: 1; justify-self: center; width: min(72vw, 340px); margin: 12px 0 44px; }
+  .avatar-ring { inset: -10px; }
   .scroll-hint { display: none; }
 }
 
