@@ -6,7 +6,7 @@ A clean, futuristic personal portfolio built with **Next.js** (App Router), Reac
 
 ```sh
 npm install
-npm run dev      # http://localhost:3001
+npm run dev      # http://localhost:3737
 npm run build    # production build
 npm start        # serve the production build
 ```
