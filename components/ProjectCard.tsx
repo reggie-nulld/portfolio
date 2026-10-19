@@ -24,7 +24,12 @@ export default function ProjectCard({ project, index }: { project: Project; inde
     >
       <div className="card-top">
         <span className="mono card-index">P/{String(index + 1).padStart(2, "0")}</span>
-        <a href={project.href} className="card-link" aria-label={`Open ${project.title}`}>
+        <a
+          href={project.href}
+          className="card-link"
+          aria-label={`Open ${project.title}`}
+          {...(project.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
+        >
           ↗
         </a>
       </div>

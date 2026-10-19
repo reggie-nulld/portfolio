@@ -32,6 +32,13 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Adzepa EPC",
+    description:
+      "Company website for a Ghana-based EPC (engineering, procurement & construction) contractor and continental builder, showcasing its services and project portfolio.",
+    tags: ["Web Design", "Responsive", "Business Site"],
+    href: "https://adzepaepc.com",
+  },
+  {
     title: "Project Nebula",
     description:
       "A real-time analytics dashboard with live data streams, interactive charts, and a fully responsive layout.",
@@ -50,13 +57,6 @@ export const projects: Project[] = [
     description:
       "A scalable REST + GraphQL backend with auth, rate limiting, and automated deployments to the cloud.",
     tags: ["Node.js", "PostgreSQL", "Docker"],
-    href: "#",
-  },
-  {
-    title: "Pulse AI",
-    description:
-      "An AI-powered assistant that summarizes documents and answers questions with a clean chat interface.",
-    tags: ["Python", "LLMs", "FastAPI"],
     href: "#",
   },
 ];
