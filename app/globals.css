@@ -55,15 +55,6 @@ ul { list-style: none; }
     radial-gradient(600px circle at 15% 10%, rgba(var(--accent-2-rgb), 0.18), transparent 60%),
     radial-gradient(500px circle at 85% 25%, rgba(var(--accent-rgb), 0.14), transparent 60%);
 }
-.cursor-glow {
-  position: fixed; z-index: -1; pointer-events: none;
-  width: 500px; height: 500px; left: 0; top: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.08), transparent 65%);
-  transform: translate(-50%, -50%);
-  transition: opacity .3s;
-  opacity: 0;
-}
 
 /* ---------- Nav ---------- */
 .nav {
