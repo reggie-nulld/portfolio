@@ -263,7 +263,14 @@ ul { list-style: none; }
   display: grid; place-items: center; width: 38px; height: 38px;
   border: 1px solid var(--line); border-radius: 50%; transition: all .3s;
 }
-.card:hover .card-link { background: var(--text); color: var(--bg); transform: rotate(45deg); }
+.card:hover .card-link { background: var(--text); color: var(--bg); }
+.card-arrow { display: inline-block; transition: transform .3s; }
+.card:hover .card-arrow { transform: rotate(45deg); }
+/* Stretch the card's link over the whole card so clicking anywhere opens the project. */
+.card-link::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+.card { cursor: pointer; }
+.card:has(.card-link:focus-visible) { outline: 2px solid var(--accent); outline-offset: 4px; }
+.card-link:focus-visible { outline: none; }
 .card h3 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
 .card p { color: var(--muted); margin-bottom: 24px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }

@@ -30,7 +30,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           aria-label={`Open ${project.title}`}
           {...(project.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
         >
-          ↗
+          <span className="card-arrow" aria-hidden="true">↗</span>
         </a>
       </div>
       <h3>{project.title}</h3>
