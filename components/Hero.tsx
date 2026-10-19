@@ -31,14 +31,36 @@ export default function Hero() {
         </div>
         <div className="hero-avatar">
           <span className="avatar-ring" aria-hidden="true" />
-          <Image
-            src={profile.avatar}
-            alt={`Portrait of ${profile.name}`}
-            width={320}
-            height={320}
-            priority
-            className="avatar-img"
-          />
+          <div className="avatar-frame">
+            <Image
+              src={profile.avatar}
+              alt={`Portrait of ${profile.name}`}
+              width={340}
+              height={340}
+              priority
+              className="avatar-img"
+            />
+            <span className="avatar-scan" aria-hidden="true" />
+          </div>
+
+          {/* Floating code cards around the portrait. Decorative only. */}
+          <div className="chip chip-code mono" aria-hidden="true">
+            <span className="tok-key">const</span> dev = {"{"}
+            <br />
+            &nbsp;&nbsp;name: <span className="tok-str">&quot;{profile.name}&quot;</span>,
+            <br />
+            &nbsp;&nbsp;coffee: <span className="tok-num">Infinity</span>
+            <br />
+            {"}"};
+          </div>
+          <div className="chip chip-term mono" aria-hidden="true">
+            <span className="tok-dim">$</span> npm run build
+            <br />
+            <span className="tok-ok">✓</span> compiled in 1.2s
+          </div>
+          <div className="chip chip-tag mono" aria-hidden="true">
+            &lt;/&gt;
+          </div>
         </div>
       </div>
       <a href="#about" className="scroll-hint mono" aria-label="Scroll down">
