@@ -26,13 +26,22 @@ function checkDatabaseUrl(value: string) {
   if (!url.password) return "has no password. Replace [YOUR-PASSWORD] with your database password";
   const rawPassword = value.match(/^postgres(?:ql)?:\/\/[^:/]+:(.*)@[^@]+$/)?.[1] ?? "";
   if (rawPassword.includes("%")) return "password contains %, which changes how it's read. Reset it to letters and numbers only";
-  if (!/:\d+\/\w+$/.test(value)) {
-    return "looks cut off. A # in your password starts a comment in .env.local. Reset it to letters and numbers only";
+  if (!url.port || url.pathname.length < 2) {
+    return "looks cut off (no port or database name at the end). A # in your password starts a comment in .env.local; reset it to letters and numbers only";
   }
   if (!/\.supabase\.(com|co)$/.test(url.hostname)) {
     return `server name reads as "${url.hostname}" instead of ...supabase.com. Your password probably contains a symbol (@ # / ? :). Reset it to letters and numbers only, then paste the new one`;
   }
   return "";
+}
+
+/** postgresql://user:••••@host:port/db, safe to share. */
+function maskPassword(value: string) {
+  const m = value.match(/^(postgres(?:ql)?:\/\/[^:/@]+:)(.*)(@[^@]*)$/);
+  // Can't split it safely: show nothing after the username rather than risk leaking the password.
+  if (!m) return `${value.match(/^postgres(?:ql)?:\/\/[^:/@]*/)?.[0] ?? "(unreadable)"}:•••• (rest hidden)`;
+  const [, head, pw, tail] = m;
+  return `${head}${"•".repeat(Math.min(pw.length, 8))}(${pw.length} chars${/[#/?%]/.test(pw) ? ", has symbols" : ""})${tail}`;
 }
 
 console.log(`Looking in: ${process.cwd()}`);
@@ -58,6 +67,7 @@ for (const key of REQUIRED) {
   else if (key === "DATABASE_URL" && !value.includes(":6543")) problem = "should be the Transaction pooler URI (port 6543)";
   else if (key === "DATABASE_URL_SESSION" && !value.includes(":5432")) problem = "should be the Session pooler URI (port 5432)";
   console.log(`${problem ? "✗" : "✓"} ${key}${problem ? `: ${problem}` : ""}`);
+  if (key.startsWith("DATABASE_URL") && value) console.log(`    ${maskPassword(value)}`);
   if (problem) ok = false;
 }
 
