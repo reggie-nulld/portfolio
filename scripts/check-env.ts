@@ -10,6 +10,7 @@ const REQUIRED = [
   "NEXT_PUBLIC_SUPABASE_URL",
   "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
   "SUPABASE_SECRET_KEY",
+  "ADMIN_EMAILS",
   "DATABASE_URL",
   "DATABASE_URL_SESSION",
 ];
@@ -31,6 +32,7 @@ for (const key of REQUIRED) {
   let problem = "";
   if (!value) problem = "missing or empty";
   else if (value.includes("[") || value.includes("]")) problem = "still contains [ ] brackets";
+  else if (key === "ADMIN_EMAILS" && !value.includes("@")) problem = "should be your admin email address";
   else if (key === "DATABASE_URL" && !value.includes(":6543")) problem = "should be the Transaction pooler URI (port 6543)";
   else if (key === "DATABASE_URL_SESSION" && !value.includes(":5432")) problem = "should be the Session pooler URI (port 5432)";
   else if (key.startsWith("DATABASE_URL") && !value.startsWith("postgres")) problem = "should start with postgresql://";
