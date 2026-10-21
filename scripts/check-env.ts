@@ -72,6 +72,24 @@ for (const key of REQUIRED) {
   if (problem) ok = false;
 }
 
+// The project ID appears in both the API URL (https://<id>.supabase.co) and the database
+// username (postgres.<id>). A mismatch means the settings come from two different projects.
+function checkSameProject() {
+  if (!ok) return;
+  const apiRef = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/^https:\/\/([a-z0-9]+)\.supabase\.co/)?.[1];
+  for (const key of ["DATABASE_URL", "DATABASE_URL_SESSION"]) {
+    const dbRef = decodeURIComponent(new URL(process.env[key]!.trim()).username).match(/^postgres\.([a-z0-9]+)$/)?.[1];
+    if (apiRef && dbRef && apiRef !== dbRef) {
+      ok = false;
+      console.log(
+        `✗ ${key}: belongs to project "${dbRef}" but NEXT_PUBLIC_SUPABASE_URL is project "${apiRef}". ` +
+          `Copy every value from the same Supabase project`
+      );
+    }
+  }
+  if (ok && apiRef) console.log(`✓ All settings point to the same project (${apiRef})`);
+}
+
 // Look the database servers up for real: catches a mistyped or hand-edited server name.
 async function checkServers() {
   if (!ok) return;
@@ -84,12 +102,13 @@ async function checkServers() {
       ok = false;
       console.log(
         `✗ ${key}: server "${host}" doesn't exist (or you're offline). In Supabase, click Connect and ` +
-          `copy the address exactly as shown. Newer projects use aws-1-… rather than aws-0-…`
+          `copy the address exactly as shown (don't edit the server part)`
       );
     }
   }
 }
 
+checkSameProject();
 checkServers().then(() => {
   console.log(ok ? "\nAll set. Run: npm run db:setup" : `\nFix the lines marked ✗ in ${FILE}, save the file, and run this again.`);
   process.exit(ok ? 0 : 1);
