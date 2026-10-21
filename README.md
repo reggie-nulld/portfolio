@@ -11,9 +11,29 @@ npm run build    # production build
 npm start        # serve the production build
 ```
 
+## Database setup (Supabase)
+
+Content is stored in a Supabase Postgres database. Without one, the site falls
+back to the defaults in `lib/data.ts`.
+
+1. Copy `.env.example` to `.env.local` and fill in the values from your Supabase project.
+2. Create the tables and copy in the starting content:
+
+   ```sh
+   npm run db:setup
+   ```
+
+   This runs `db:migrate` (creates the tables) then `db:seed` (copies `lib/data.ts`
+   into them). Seeding skips if content already exists; `npm run db:seed -- --force`
+   resets the content tables.
+3. `npm run db:studio` opens a browser view of the database.
+
+After changing `lib/db/schema.ts`, run `npm run db:generate` to create a new migration
+in `drizzle/`, then `npm run db:migrate`.
+
 ## Customize
 
-- **Content**: everything (name, bio, stats, projects, skills, email, socials) lives in `lib/data.ts`.
+- **Content**: stored in the database (see above); `lib/data.ts` holds the defaults.
 - **Photo**: put your picture in `public/` (e.g. `public/me.jpg`) and set `avatar` in `lib/data.ts`.
 - **Colors / fonts**: the green accent palette is a few CSS variables at the top of `app/globals.css`; fonts are loaded via `next/font` in `app/layout.tsx`.
 - **Favicon**: `app/icon.svg`.
@@ -23,7 +43,9 @@ npm start        # serve the production build
 ```
 app/          layout, page, global styles, icon
 components/   one component per section (Hero, About, Projects, Skills, Contact, …)
-lib/          site content (data.ts) and shared hooks
+lib/          content loader, database schema (db/), defaults (data.ts), hooks
+scripts/      seed script
+drizzle/      database migrations
 ```
 
 ## Deploy

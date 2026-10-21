@@ -1,7 +1,7 @@
 "use client";
 
 import { PointerEvent, useRef } from "react";
-import type { Project } from "@/lib/data";
+import type { Project } from "@/lib/content";
 import { useInView } from "@/lib/hooks";
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {

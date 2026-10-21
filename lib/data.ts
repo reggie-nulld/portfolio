@@ -1,4 +1,6 @@
-// All site content lives here. Edit this file to make the portfolio yours.
+// Default site content. Once the database is set up (npm run db:setup), the site
+// reads from the database instead and this file is only the fallback and the
+// seed source. navLinks below is site structure and always comes from here.
 
 export const profile = {
   name: "Reggie",

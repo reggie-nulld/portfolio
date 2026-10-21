@@ -1,8 +1,8 @@
-import { skills } from "@/lib/data";
+import type { SkillGroup } from "@/lib/content";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 
-export default function Skills() {
+export default function Skills({ skills }: { skills: SkillGroup[] }) {
   return (
     <section id="skills" className="section">
       <SectionTitle index="03">Skills &amp; Stack</SectionTitle>

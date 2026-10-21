@@ -1,9 +1,9 @@
-import { profile, stats } from "@/lib/data";
+import type { Profile, Stat as StatItem } from "@/lib/content";
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 import Stat from "./Stat";
 
-export default function About() {
+export default function About({ profile, stats }: { profile: Profile; stats: StatItem[] }) {
   return (
     <section id="about" className="section">
       <SectionTitle index="01">About</SectionTitle>

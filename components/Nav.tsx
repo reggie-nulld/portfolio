@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { navLinks, profile } from "@/lib/data";
+import { navLinks } from "@/lib/data";
 
-export default function Nav() {
+export default function Nav({ name: siteName, domain }: { name: string; domain: string }) {
   const [open, setOpen] = useState(false);
-  const [name, tld] = profile.domain.split(".");
+  const [name, tld] = domain.split(".");
 
   return (
     <header className="nav">
       <a href="#top" className="logo" aria-label="Home">
-        <span className="logo-mark">{profile.name[0]}</span>
+        <span className="logo-mark">{siteName[0]}</span>
         <span className="logo-text">
           {name}
           <span className="accent">.{tld}</span>

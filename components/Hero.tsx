@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { profile } from "@/lib/data";
+import type { Profile } from "@/lib/content";
 import NetworkCanvas from "./NetworkCanvas";
 import Typewriter from "./Typewriter";
 
-export default function Hero() {
+export default function Hero({ profile }: { profile: Profile }) {
   return (
     <section className="hero">
       <NetworkCanvas />

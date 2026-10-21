@@ -5,20 +5,26 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
+import { getContent } from "@/lib/content";
 
-export default function Home() {
+// Re-read the database at most once an hour; the admin also refreshes on save.
+export const revalidate = 3600;
+
+export default async function Home() {
+  const { profile, stats, projects, skills, socials } = await getContent();
+
   return (
     <>
       <div className="bg-grid" aria-hidden="true" />
-      <Nav />
+      <Nav name={profile.name} domain={profile.domain} />
       <main id="top">
-        <Hero />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
+        <Hero profile={profile} />
+        <About profile={profile} stats={stats} />
+        <Projects projects={projects} />
+        <Skills skills={skills} />
+        <Contact email={profile.email} socials={socials} />
       </main>
-      <Footer />
+      <Footer name={profile.name} />
     </>
   );
 }

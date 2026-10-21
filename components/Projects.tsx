@@ -1,8 +1,8 @@
-import { projects } from "@/lib/data";
+import type { Project } from "@/lib/content";
 import ProjectCard from "./ProjectCard";
 import SectionTitle from "./SectionTitle";
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: Project[] }) {
   return (
     <section id="projects" className="section">
       <SectionTitle index="02">Selected Projects</SectionTitle>
