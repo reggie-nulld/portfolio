@@ -12,11 +12,11 @@ import postgres from "postgres";
 import * as data from "../lib/data";
 import { projects, siteSettings, skillGroups, socials, stats } from "../lib/db/schema";
 
-config({ path: ".env.local" });
+config({ path: ".env.local", quiet: true });
 
-const url = process.env.DATABASE_URL_SESSION ?? process.env.DATABASE_URL;
+const url = process.env.DATABASE_URL_SESSION || process.env.DATABASE_URL;
 if (!url) {
-  console.error("✗ DATABASE_URL is not set. Add it to .env.local first.");
+  console.error("✗ No database URL found in .env.local. Run `npm run env:check` to see what's missing.");
   process.exit(1);
 }
 

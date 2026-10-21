@@ -10,7 +10,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "env:check": "tsx scripts/check-env.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",
