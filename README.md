@@ -63,4 +63,4 @@ drizzle/      database migrations
 
 Import the repo on [Vercel](https://vercel.com/new); it's detected as a Next.js app.
 Add every variable from `.env.example` under **Settings → Environment Variables**.
-`vercel.json` pins server functions to London (`lhr1`), next to the Supabase database.
+`vercel.json` pins server functions to Dublin (`dub1`), next to the Supabase database.
