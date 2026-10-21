@@ -2,6 +2,7 @@
  * npm run env:check
  * Reports which settings in .env.local are present, without printing their values.
  */
+import { lookup } from "node:dns/promises";
 import { existsSync, readdirSync } from "node:fs";
 import { config } from "dotenv";
 
@@ -71,5 +72,25 @@ for (const key of REQUIRED) {
   if (problem) ok = false;
 }
 
-console.log(ok ? "\nAll set. Run: npm run db:setup" : `\nFix the lines marked ✗ in ${FILE}, save the file, and run this again.`);
-process.exit(ok ? 0 : 1);
+// Look the database servers up for real: catches a mistyped or hand-edited server name.
+async function checkServers() {
+  if (!ok) return;
+  for (const key of ["DATABASE_URL", "DATABASE_URL_SESSION"]) {
+    const host = new URL(process.env[key]!.trim()).hostname;
+    try {
+      await lookup(host);
+      console.log(`✓ ${key}: server ${host} found`);
+    } catch {
+      ok = false;
+      console.log(
+        `✗ ${key}: server "${host}" doesn't exist (or you're offline). In Supabase, click Connect and ` +
+          `copy the address exactly as shown. Newer projects use aws-1-… rather than aws-0-…`
+      );
+    }
+  }
+}
+
+checkServers().then(() => {
+  console.log(ok ? "\nAll set. Run: npm run db:setup" : `\nFix the lines marked ✗ in ${FILE}, save the file, and run this again.`);
+  process.exit(ok ? 0 : 1);
+});
