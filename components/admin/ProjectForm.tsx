@@ -44,6 +44,9 @@ export default function ProjectForm({
 
   return (
     <form className="admin-form panel glass" onSubmit={onSubmit} onInput={onInput} noValidate>
+      <Link href="/admin/projects" className="btn btn-ghost btn-sm project-form-back">
+        ← All projects
+      </Link>
       <label className="field" data-field="title">
         <span>Title</span>
         <input name="title" defaultValue={project.title} required maxLength={80} autoFocus={!project.title} />
@@ -114,12 +117,7 @@ export default function ProjectForm({
         </div>
       </div>
 
-      <div className="form-footer-row">
-        <Link href="/admin/projects" className="btn btn-ghost">
-          ← All projects
-        </Link>
-        <FormFooter state={state} pending={pending} dirty={dirty} label={submitLabel} />
-      </div>
+      <FormFooter state={state} pending={pending} dirty={dirty} label={submitLabel} />
     </form>
   );
 }

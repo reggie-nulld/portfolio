@@ -17,6 +17,7 @@ export default function ProjectList({ projects }: { projects: ProjectRow[] }) {
   const [items, setItems] = useState(projects);
   const [dragId, setDragId] = useState<number | null>(null);
   const [error, setError] = useState("");
+  const [saved, setSaved] = useState(false);
   const [pending, startTransition] = useTransition();
 
   // Take the server's copy whenever it changes (after a save or delete).
@@ -24,12 +25,13 @@ export default function ProjectList({ projects }: { projects: ProjectRow[] }) {
 
   const run = (fn: () => Promise<{ error?: string } | undefined>) => {
     setError("");
+    setSaved(false);
     startTransition(async () => {
       const result = await fn();
       if (result?.error) {
         setError(result.error);
         setItems(projects);
-      }
+      } else setSaved(true);
     });
   };
 
@@ -77,9 +79,15 @@ export default function ProjectList({ projects }: { projects: ProjectRow[] }) {
           {error}
         </p>
       )}
-      <p className="list-hint mono">
-        {pending ? "Saving…" : "Use the arrows (or drag on a computer) to reorder. This is the order on your site."}
-      </p>
+      <div className="list-hint">
+        <p className="mono">
+          Changes on this page save automatically. Use the arrows (or drag on a computer) to reorder; this is
+          the order on your site. Tap <strong>Edit</strong> to change a project&apos;s details.
+        </p>
+        <span className={`save-status ${pending ? "" : saved ? "is-ok" : ""}`} role="status">
+          {pending ? "Saving…" : saved ? "✓ Saved. Your live site is updated." : ""}
+        </span>
+      </div>
       <ol className="project-list">
         {items.map((p, i) => (
           <li

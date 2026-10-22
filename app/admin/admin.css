@@ -162,13 +162,15 @@
 .switch-field input:checked + .switch::after { transform: translateX(18px); background: var(--accent); }
 .switch-field input:focus-visible + .switch { box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.3); }
 
+/* Stays pinned to the bottom of the screen while a long form is on screen. */
 .form-footer {
+  position: sticky; bottom: 0; z-index: 5;
   display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: wrap;
-  padding-top: 16px; margin-top: 4px; border-top: 1px solid var(--line);
+  padding: 14px 0; margin-top: 4px; border-top: 1px solid var(--line);
+  background: linear-gradient(to top, rgba(10, 15, 12, 0.98) 70%, rgba(10, 15, 12, 0.85));
 }
 .form-footer .admin-submit { margin-top: 0; }
-.form-footer-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-.form-footer-row .form-footer { flex: 1; }
+.project-form-back { align-self: flex-start; }
 .save-status { font-size: 0.85rem; color: var(--muted); }
 .save-status.is-ok { color: var(--accent); }
 .save-status.is-dirty { color: #f3d27a; }
@@ -208,7 +210,10 @@
 .page-header-row { margin-bottom: 24px; }
 .page-header-row .page-header { margin-bottom: 0; }
 .page-header-row .btn { margin-top: 6px; }
-.list-hint { color: var(--muted); font-size: 0.75rem; margin-bottom: 12px; }
+.list-hint { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.list-hint p { color: var(--muted); font-size: 0.75rem; }
+.list-hint strong { color: var(--text); font-weight: 500; }
+.list-hint .save-status:empty { display: none; }
 .project-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .project-row {
   display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px;
@@ -239,4 +244,7 @@
   .project-row { flex-wrap: wrap; }
   .project-row .row-actions { width: 100%; justify-content: flex-end; }
   .drag-handle { display: none; }
+  .form-footer { justify-content: stretch; }
+  .form-footer .admin-submit { flex: 1; justify-content: center; }
+  .form-footer .save-status { width: 100%; text-align: center; }
 }
