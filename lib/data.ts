@@ -26,10 +26,15 @@ export const stats = [
 ];
 
 export type Project = {
+  id?: number;
   title: string;
   description: string;
   tags: string[];
   href: string;
+  githubUrl?: string | null;
+  imageUrl?: string | null;
+  year?: string | null;
+  featured?: boolean;
 };
 
 export const projects: Project[] = [

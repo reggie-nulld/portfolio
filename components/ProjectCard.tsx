@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { PointerEvent, useRef } from "react";
 import type { Project } from "@/lib/content";
 import { useInView } from "@/lib/hooks";
@@ -18,12 +19,15 @@ export default function ProjectCard({ project, index }: { project: Project; inde
   return (
     <article
       ref={ref}
-      className={`card glass reveal ${visible ? "visible" : ""}`}
+      className={`card glass reveal ${project.featured ? "card-featured" : ""} ${visible ? "visible" : ""}`}
       style={{ transitionDelay: `${(index % 2) * 80}ms` }}
       onPointerMove={onPointerMove}
     >
       <div className="card-top">
-        <span className="mono card-index">P/{String(index + 1).padStart(2, "0")}</span>
+        <span className="mono card-index">
+          P/{String(index + 1).padStart(2, "0")}
+          {project.year && <span className="card-year"> · {project.year}</span>}
+        </span>
         <a
           href={project.href}
           className="card-link"
@@ -33,6 +37,16 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           <span className="card-arrow" aria-hidden="true">↗</span>
         </a>
       </div>
+      {project.imageUrl && (
+        <div className="card-media">
+          <Image
+            src={project.imageUrl}
+            alt={`Screenshot of ${project.title}`}
+            fill
+            sizes={project.featured ? "(max-width: 860px) 100vw, 1100px" : "(max-width: 860px) 100vw, 550px"}
+          />
+        </div>
+      )}
       <h3>{project.title}</h3>
       <p>{project.description}</p>
       <ul className="tags mono">
@@ -40,6 +54,11 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           <li key={tag}>{tag}</li>
         ))}
       </ul>
+      {project.githubUrl && (
+        <a href={project.githubUrl} className="card-source mono" target="_blank" rel="noopener noreferrer">
+          View source ↗
+        </a>
+      )}
     </article>
   );
 }

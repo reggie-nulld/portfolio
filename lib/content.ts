@@ -28,7 +28,19 @@ const fallbackContent: SiteContent = {
 };
 
 async function loadContent(): Promise<SiteContent> {
-  if (!db) return fallbackContent;
+  return (await readContent()).content;
+}
+
+/**
+ * Site content plus where it came from. The admin Content page uses the flags to
+ * explain when it's showing the built-in starter content instead of saved content.
+ */
+export async function getAllContent() {
+  return readContent();
+}
+
+async function readContent(): Promise<{ content: SiteContent; fromDatabase: boolean; hasDatabase: boolean }> {
+  if (!db) return { content: fallbackContent, fromDatabase: false, hasDatabase: false };
 
   const [settingsRows, statRows, projectRows, skillRows, socialRows] = await Promise.all([
     db.select().from(siteSettings).where(eq(siteSettings.id, 1)).limit(1),
@@ -44,9 +56,9 @@ async function loadContent(): Promise<SiteContent> {
 
   const settings = settingsRows[0];
   // An empty database (seed not run yet) shouldn't blank the site.
-  if (!settings) return fallbackContent;
+  if (!settings) return { content: fallbackContent, fromDatabase: false, hasDatabase: true };
 
-  return {
+  const content: SiteContent = {
     profile: {
       name: settings.name,
       domain: settings.domain,
@@ -58,10 +70,21 @@ async function loadContent(): Promise<SiteContent> {
       about: settings.about,
     },
     stats: statRows.map(({ value, suffix, label }) => ({ value, suffix, label })),
-    projects: projectRows.map(({ title, description, tags, href }) => ({ title, description, tags, href })),
+    projects: projectRows.map(({ id, title, description, tags, href, githubUrl, imageUrl, year, featured }) => ({
+      id,
+      title,
+      description,
+      tags,
+      href,
+      githubUrl,
+      imageUrl,
+      year,
+      featured,
+    })),
     skills: skillRows.map(({ name, items }) => ({ group: name, items })),
     socials: socialRows.map(({ label, href }) => ({ label, href })),
   };
+  return { content, fromDatabase: true, hasDatabase: true };
 }
 
 /**

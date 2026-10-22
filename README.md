@@ -42,10 +42,18 @@ in `drizzle/`, then `npm run db:migrate`.
 
 Only emails listed in `ADMIN_EMAILS` get in, even if someone else has a Supabase account.
 
+In the admin:
+
+- **Content**: profile and hero text, photo, typing phrases, About, stats, skills and social links.
+- **Projects**: add, edit, delete, publish/unpublish, feature and reorder (drag or arrows), with screenshots.
+
+Saving updates the live site straight away; no redeploy needed. Image uploads need
+`SUPABASE_SECRET_KEY`; the first upload creates a public `media` bucket in Supabase Storage.
+
 ## Customize
 
-- **Content**: stored in the database (see above); `lib/data.ts` holds the defaults.
-- **Photo**: put your picture in `public/` (e.g. `public/me.jpg`) and set `avatar` in `lib/data.ts`.
+- **Content**: edit it in `/admin`; `lib/data.ts` holds the defaults used before the database is set up.
+- **Photo**: upload it in `/admin/content`, or put it in `public/` and enter its path (e.g. `/me.jpg`).
 - **Colors / fonts**: the green accent palette is a few CSS variables at the top of `app/globals.css`; fonts are loaded via `next/font` in `app/layout.tsx`.
 - **Favicon**: `app/icon.svg`.
 
