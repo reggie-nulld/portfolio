@@ -63,6 +63,9 @@ for (const key of REQUIRED) {
   if (!value) problem = "missing or empty";
   else if (value.includes("[") || value.includes("]")) problem = "still contains [ ] brackets";
   else if (key === "ADMIN_EMAILS" && !value.includes("@")) problem = "should be your admin email address";
+  else if (key === "NEXT_PUBLIC_SUPABASE_URL" && !/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(value)) {
+    problem = "should be just https://<project-id>.supabase.co with nothing after it (remove /rest/v1)";
+  }
   else if (key.startsWith("DATABASE_URL") && !value.startsWith("postgres")) problem = "should start with postgresql://";
   else if (key.startsWith("DATABASE_URL") && (problem = checkDatabaseUrl(value))) {}
   else if (key === "DATABASE_URL" && !value.includes(":6543")) problem = "should be the Transaction pooler URI (port 6543)";

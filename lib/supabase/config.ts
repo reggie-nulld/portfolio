@@ -1,4 +1,16 @@
-export const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+/**
+ * Just the origin (https://<id>.supabase.co). Supabase's dashboard shows the API URL
+ * with /rest/v1 on the end; keeping it would send logins to a path that 404s.
+ */
+export const supabaseUrl = toOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "");
+
+function toOrigin(value: string) {
+  try {
+    return value ? new URL(value.trim()).origin : "";
+  } catch {
+    return value.trim();
+  }
+}
 export const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
 
 /**
