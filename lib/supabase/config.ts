@@ -2,7 +2,9 @@
  * Just the origin (https://<id>.supabase.co). Supabase's dashboard shows the API URL
  * with /rest/v1 on the end; keeping it would send logins to a path that 404s.
  */
-export const supabaseUrl = toOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "");
+export const supabaseUrl = toOrigin(
+  process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""
+);
 
 function toOrigin(value: string) {
   try {
@@ -11,7 +13,11 @@ function toOrigin(value: string) {
     return value.trim();
   }
 }
-export const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
+
+// Only server code uses these, so the private names (no NEXT_PUBLIC_ prefix) are preferred.
+// The NEXT_PUBLIC_ names still work so existing setups don't break.
+export const supabaseKey =
+  process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "";
 
 /**
  * Auth cookies are httpOnly because the admin never uses Supabase in the browser,

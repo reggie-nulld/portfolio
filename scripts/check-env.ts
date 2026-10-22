@@ -8,8 +8,8 @@ import { config } from "dotenv";
 
 const FILE = ".env.local";
 const REQUIRED = [
-  "NEXT_PUBLIC_SUPABASE_URL",
-  "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+  "SUPABASE_URL",
+  "SUPABASE_PUBLISHABLE_KEY",
   "SUPABASE_SECRET_KEY",
   "ADMIN_EMAILS",
   "DATABASE_URL",
@@ -56,6 +56,11 @@ if (!existsSync(FILE)) {
 
 config({ path: FILE, quiet: true });
 
+// The older NEXT_PUBLIC_ names are still accepted.
+for (const key of ["SUPABASE_URL", "SUPABASE_PUBLISHABLE_KEY"]) {
+  process.env[key] ||= process.env[`NEXT_PUBLIC_${key}`];
+}
+
 let ok = true;
 for (const key of REQUIRED) {
   const value = process.env[key]?.trim() ?? "";
@@ -63,7 +68,7 @@ for (const key of REQUIRED) {
   if (!value) problem = "missing or empty";
   else if (value.includes("[") || value.includes("]")) problem = "still contains [ ] brackets";
   else if (key === "ADMIN_EMAILS" && !value.includes("@")) problem = "should be your admin email address";
-  else if (key === "NEXT_PUBLIC_SUPABASE_URL" && !/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(value)) {
+  else if (key === "SUPABASE_URL" && !/^https:\/\/[a-z0-9]+\.supabase\.co\/?$/.test(value)) {
     problem = "should be just https://<project-id>.supabase.co with nothing after it (remove /rest/v1)";
   }
   else if (key.startsWith("DATABASE_URL") && !value.startsWith("postgres")) problem = "should start with postgresql://";
@@ -79,13 +84,13 @@ for (const key of REQUIRED) {
 // username (postgres.<id>). A mismatch means the settings come from two different projects.
 function checkSameProject() {
   if (!ok) return;
-  const apiRef = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/^https:\/\/([a-z0-9]+)\.supabase\.co/)?.[1];
+  const apiRef = process.env.SUPABASE_URL?.match(/^https:\/\/([a-z0-9]+)\.supabase\.co/)?.[1];
   for (const key of ["DATABASE_URL", "DATABASE_URL_SESSION"]) {
     const dbRef = decodeURIComponent(new URL(process.env[key]!.trim()).username).match(/^postgres\.([a-z0-9]+)$/)?.[1];
     if (apiRef && dbRef && apiRef !== dbRef) {
       ok = false;
       console.log(
-        `✗ ${key}: belongs to project "${dbRef}" but NEXT_PUBLIC_SUPABASE_URL is project "${apiRef}". ` +
+        `✗ ${key}: belongs to project "${dbRef}" but SUPABASE_URL is project "${apiRef}". ` +
           `Copy every value from the same Supabase project`
       );
     }
