@@ -37,8 +37,11 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  const { data } = await supabase.auth.getUser();
-  const isAdmin = isAdminEmail(data.user?.email);
+  // getClaims verifies the token's signature locally (no round trip to Supabase once its
+  // public keys are cached), and refreshes the session cookie when needed. Pages still
+  // do the full server check in requireAdmin(), so this is only the fast first gate.
+  const { data } = await supabase.auth.getClaims();
+  const isAdmin = isAdminEmail(data?.claims?.email as string | undefined);
 
   const redirectTo = (path: string) => {
     const res = NextResponse.redirect(new URL(path, request.url));
