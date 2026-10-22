@@ -8,7 +8,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
       <SectionTitle index="02">Selected Projects</SectionTitle>
       <div className="projects">
         {projects.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
+          <ProjectCard key={project.id ?? project.title} project={project} index={i} />
         ))}
       </div>
     </section>

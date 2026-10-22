@@ -264,6 +264,22 @@ ul { list-style: none; }
 .card-link:focus-visible { outline: none; }
 .card h3 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 10px; }
 .card p { color: var(--muted); margin-bottom: 24px; }
+.card-year { color: var(--muted); }
+.card-featured { grid-column: 1 / -1; }
+.card-media {
+  position: relative; aspect-ratio: 16 / 9; margin: -14px 0 24px;
+  border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+.card-media img { object-fit: cover; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.card:hover .card-media img { transform: scale(1.03); }
+.card-featured .card-media { aspect-ratio: 21 / 9; }
+/* Sits above the card-wide link so it opens the repo, not the live site. */
+.card-source {
+  position: relative; z-index: 2; display: inline-block; margin-top: 18px;
+  font-size: 0.8rem; color: var(--muted); transition: color .2s;
+}
+.card-source:hover { color: var(--accent); }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tags li {
   font-size: 0.75rem; padding: 5px 12px; border-radius: 999px;

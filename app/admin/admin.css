@@ -132,3 +132,111 @@
   background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.25);
   border-radius: 10px; padding: 10px 12px; margin-bottom: 16px;
 }
+
+/* ---------- Editors (Phase 3) ---------- */
+.btn-sm { padding: 8px 14px; font-size: 0.85rem; cursor: pointer; color: var(--text); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.sections { display: flex; flex-direction: column; gap: 22px; }
+.panel-title { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 4px; }
+.panel-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
+.panel-title + .admin-form { margin-top: 18px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.field textarea { resize: vertical; line-height: 1.5; }
+.field-hint { color: var(--muted); font-size: 0.78rem; display: block; }
+.field-error { color: #ffb4b4; font-size: 0.8rem; }
+.field input[aria-invalid="true"] { border-color: rgba(255, 90, 90, 0.5); }
+
+.switches { display: flex; flex-direction: column; gap: 14px; padding-top: 26px; }
+.switch-field { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 0.95rem; }
+.form-grid > .switch-field { padding-top: 30px; }
+.switch-field input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.switch {
+  flex-shrink: 0; position: relative; width: 42px; height: 24px; border-radius: 999px; margin-top: 1px;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid var(--line); transition: background .2s, border-color .2s;
+}
+.switch::after {
+  content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--muted); transition: transform .2s, background .2s;
+}
+.switch-field input:checked + .switch { background: rgba(var(--accent-rgb), 0.25); border-color: rgba(var(--accent-rgb), 0.6); }
+.switch-field input:checked + .switch::after { transform: translateX(18px); background: var(--accent); }
+.switch-field input:focus-visible + .switch { box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.3); }
+
+.form-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: wrap;
+  padding-top: 16px; margin-top: 4px; border-top: 1px solid var(--line);
+}
+.form-footer .admin-submit { margin-top: 0; }
+.form-footer-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.form-footer-row .form-footer { flex: 1; }
+.save-status { font-size: 0.85rem; color: var(--muted); }
+.save-status.is-ok { color: var(--accent); }
+.save-status.is-dirty { color: #f3d27a; }
+.save-status.is-error { color: #ffb4b4; }
+
+/* Rows editor */
+.rows { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.row { display: grid; gap: 12px; align-items: end; }
+.row .field input { padding: 10px 12px; }
+.row-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.row-actions { display: flex; align-items: center; gap: 6px; }
+.row .row-actions { padding-bottom: 4px; }
+.rows-empty { color: var(--muted); font-size: 0.9rem; }
+.add-row { align-self: flex-start; }
+.icon-btn {
+  width: 34px; height: 34px; display: grid; place-items: center; flex-shrink: 0;
+  border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.icon-btn:hover:not(:disabled) { color: var(--text); border-color: rgba(var(--accent-rgb), 0.5); }
+.icon-btn.danger:hover:not(:disabled) { color: #ffb4b4; border-color: rgba(255, 90, 90, 0.5); background: rgba(255, 90, 90, 0.08); }
+.icon-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Image field */
+.image-row { display: flex; gap: 16px; align-items: center; }
+.image-preview {
+  flex-shrink: 0; width: 120px; height: 90px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+  display: grid; place-items: center; color: var(--muted); font-size: 0.7rem;
+}
+.image-preview img { width: 100%; height: 100%; object-fit: cover; }
+.image-controls { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.image-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Projects list */
+.page-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.page-header-row { margin-bottom: 24px; }
+.page-header-row .page-header { margin-bottom: 0; }
+.page-header-row .btn { margin-top: 6px; }
+.list-hint { color: var(--muted); font-size: 0.75rem; margin-bottom: 12px; }
+.project-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.project-row {
+  display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px;
+  transition: border-color .2s, opacity .2s;
+}
+.project-row.dragging { opacity: 0.5; border-color: rgba(var(--accent-rgb), 0.6); }
+.drag-handle { color: var(--muted); cursor: grab; letter-spacing: -3px; user-select: none; }
+.project-thumb {
+  flex-shrink: 0; width: 64px; height: 44px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--line); display: grid; place-items: center; color: var(--accent); font-size: 0.8rem;
+  background: rgba(var(--accent-rgb), 0.05);
+}
+.project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.project-info { flex: 1; min-width: 0; }
+.project-title { font-weight: 600; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-title:hover { color: var(--accent); }
+.project-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 0.72rem; color: var(--muted); }
+.pill { padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
+.pill-live { color: var(--accent); border-color: rgba(var(--accent-rgb), 0.35); background: rgba(var(--accent-rgb), 0.08); }
+.pill-draft { color: #f3d27a; border-color: rgba(243, 210, 122, 0.35); }
+.empty-state { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid > .switch-field, .switches { padding-top: 0; }
+  .row { grid-template-columns: 1fr !important; padding: 14px; border: 1px solid var(--line); border-radius: 14px; gap: 10px; }
+  .row-label { position: static; width: auto; height: auto; clip: auto; }
+  .project-row { flex-wrap: wrap; }
+  .project-row .row-actions { width: 100%; justify-content: flex-end; }
+  .drag-handle { display: none; }
+}
