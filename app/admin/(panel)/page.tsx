@@ -35,7 +35,12 @@ export default async function DashboardPage() {
       <PageHeader title={`Welcome back${name ? `, ${name}` : ""}`} subtitle="Here's what's happening on your site." />
 
       {!counts && (
-        <p className="form-error">No database connection. Check DATABASE_URL in .env.local.</p>
+        <p className="form-error">
+          No database connection: DATABASE_URL isn&apos;t set.{" "}
+          {process.env.VERCEL
+            ? "Add it in Vercel → Settings → Environment Variables (with Production ticked), then redeploy."
+            : "Add it to .env.local and restart the dev server."}
+        </p>
       )}
 
       <div className="tiles">

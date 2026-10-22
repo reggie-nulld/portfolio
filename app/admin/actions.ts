@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { isAdminEmail, isSupabaseConfigured } from "@/lib/supabase/config";
-import { createClient } from "@/lib/supabase/server";
+import { clearAuthCookies, createClient } from "@/lib/supabase/server";
 
 export type LoginState = { error?: string; email?: string };
 
@@ -34,6 +34,7 @@ export async function signIn(_prev: LoginState, formData: FormData): Promise<Log
   // A valid Supabase user who isn't on ADMIN_EMAILS doesn't get a session.
   if (!isAdminEmail(data.user.email)) {
     await supabase.auth.signOut();
+    await clearAuthCookies();
     return { email, error: "This account doesn't have admin access." };
   }
 
@@ -44,6 +45,8 @@ export async function signOut() {
   if (isSupabaseConfigured) {
     const supabase = await createClient();
     await supabase.auth.signOut();
+    // Delete the cookies directly; signOut's own clean-up can land after the response.
+    await clearAuthCookies();
   }
   redirect("/admin/login");
 }
