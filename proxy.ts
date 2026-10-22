@@ -3,9 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   authCookieOptions,
   isAdminEmail,
+  isSessionExpired,
   isSupabaseConfigured,
   supabaseKey,
   supabaseUrl,
+  withSessionMaxAge,
 } from "./lib/supabase/config";
 
 const LOGIN = "/admin/login";
@@ -32,7 +34,7 @@ export async function proxy(request: NextRequest) {
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({ request });
-        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        cookiesToSet.forEach(({ name, value, options }) => response.cookies.set(name, value, withSessionMaxAge(options)));
       },
     },
   });
@@ -41,7 +43,7 @@ export async function proxy(request: NextRequest) {
   // public keys are cached), and refreshes the session cookie when needed. Pages still
   // do the full server check in requireAdmin(), so this is only the fast first gate.
   const { data } = await supabase.auth.getClaims();
-  const isAdmin = isAdminEmail(data?.claims?.email as string | undefined);
+  const claims = data?.claims;
 
   const redirectTo = (path: string) => {
     const res = NextResponse.redirect(new URL(path, request.url));
@@ -50,6 +52,20 @@ export async function proxy(request: NextRequest) {
     return res;
   };
 
+  // Logins last SESSION_MAX_AGE_SECONDS from sign-in, however active the session is.
+  if (claims && isSessionExpired(claims)) {
+    await supabase.auth.signOut();
+    // signOut clears cookies via an auth event that can land after we respond,
+    // so delete the session cookies on this response directly.
+    const res = isLogin ? NextResponse.next() : NextResponse.redirect(new URL(`${LOGIN}?expired=1`, request.url));
+    request.cookies
+      .getAll()
+      .filter((c) => c.name.startsWith("sb-") && c.name.includes("auth-token"))
+      .forEach((c) => res.cookies.set(c.name, "", { ...authCookieOptions, maxAge: 0 }));
+    return res;
+  }
+
+  const isAdmin = isAdminEmail(claims?.email as string | undefined);
   if (!isAdmin && !isLogin) return redirectTo(LOGIN);
   if (isAdmin && isLogin) return redirectTo("/admin");
   return response;
