@@ -134,21 +134,22 @@ ul { list-style: none; }
   mix-blend-mode: multiply;
 }
 .avatar-scan::after {
-  content: ""; position: absolute; left: 0; right: 0; height: 30%;
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30%;
   background: linear-gradient(180deg, transparent, rgba(var(--accent-rgb), 0.12), transparent);
   animation: scan 5s linear infinite;
   mix-blend-mode: screen;
+  will-change: transform;
 }
-@keyframes scan { from { top: -30%; } to { top: 100%; } }
+/* transform (not top) so the browser just moves the layer instead of repainting. */
+@keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(334%); } }
 
 /* Floating code cards */
 .chip {
   position: absolute; z-index: 2;
   padding: 10px 14px; border-radius: 12px;
   font-size: 0.72rem; line-height: 1.55; white-space: nowrap; color: var(--text); text-align: left;
-  background: rgba(8, 13, 10, 0.78);
+  background: rgba(8, 13, 10, 0.92);
   border: 1px solid rgba(var(--accent-rgb), 0.25);
-  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.8);
   animation: float 6s ease-in-out infinite;
 }
@@ -217,12 +218,12 @@ ul { list-style: none; }
 .section-title .mono { font-size: 0.55em; }
 .section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
 
+/* A solid tint rather than backdrop-filter: the cards sit on a near-black background,
+   so a blur looked the same but made the browser re-blur on every scroll frame. */
 .glass {
-  background: var(--glass);
+  background: rgba(12, 16, 13, 0.88);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 /* About */

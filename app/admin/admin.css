@@ -56,8 +56,7 @@
   display: flex; flex-direction: column; gap: 28px;
   padding: 22px 16px;
   border-right: 1px solid var(--line);
-  background: rgba(8, 13, 10, 0.7);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: rgba(8, 13, 10, 0.92);
 }
 .sidebar-top { display: flex; align-items: center; justify-content: space-between; padding: 0 6px; }
 .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
@@ -110,6 +109,7 @@
   .sidebar-nav, .sidebar-bottom { display: none; }
   .admin-sidebar.open .sidebar-nav { display: flex; margin-top: 14px; }
   .admin-sidebar.open .sidebar-bottom { display: flex; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .admin-sidebar { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
   .admin-sidebar.open { background: rgba(8, 13, 10, 0.97); }
   .admin-main { padding-top: 28px; }
 }

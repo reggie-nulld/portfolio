@@ -25,7 +25,12 @@ try {
 const nextConfig: NextConfig = {
   // Pin the project root so a stray lockfile in a parent folder doesn't confuse Turbopack.
   turbopack: { root: path.join(__dirname) },
-  images: { remotePatterns: storagePatterns },
+  images: {
+    remotePatterns: storagePatterns,
+    // Uploaded images get a new file name every time, so a resized copy never goes
+    // stale; keep it for a year instead of re-making it every few hours.
+    minimumCacheTTL: 31536000,
+  },
   experimental: {
     // Image uploads from the admin. The browser shrinks them first, so this is headroom.
     serverActions: { bodySizeLimit: "4mb" },
