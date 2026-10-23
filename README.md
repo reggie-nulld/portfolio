@@ -47,6 +47,13 @@ In the admin:
 - **Content**: profile and hero text, photo, typing phrases, About, stats, skills and social links.
 - **Projects**: add, edit, delete, publish/unpublish, feature and reorder (drag or arrows), with screenshots.
 
+- **Dashboard**: visitors, page views and project clicks for the last 7, 30 or 90 days, with a
+  daily traffic chart and top sources, countries, devices and browsers.
+
+Visits are counted by `app/api/track` without cookies and without storing IP addresses (a
+daily-rotating hash tells visitors apart). Bots and your own visits while signed in are skipped.
+Add `?ref=linkedin` (or `?utm_source=…`) to links you share to see them as a source.
+
 Saving updates the live site straight away; no redeploy needed. Image uploads need
 `SUPABASE_SECRET_KEY`; the first upload creates a public `media` bucket in Supabase Storage.
 

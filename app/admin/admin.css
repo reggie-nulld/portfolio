@@ -248,3 +248,70 @@
   .form-footer .admin-submit { flex: 1; justify-content: center; }
   .form-footer .save-status { width: 100%; text-align: center; }
 }
+
+/* ---------- Insights (Phase 4) ---------- */
+.admin-root {
+  /* Chart colours, checked for colour-blind separation and contrast on the dark surface. */
+  --viz-1: #40a070;
+  --viz-2: #3987e5;
+  --viz-surface: #0b100d;
+}
+.range-filter { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.range-filter a {
+  padding: 8px 14px; border-radius: 999px; font-size: 0.85rem; color: var(--muted);
+  border: 1px solid var(--line); transition: color .2s, border-color .2s, background .2s;
+}
+.range-filter a:hover { color: var(--text); }
+.range-filter a.active { color: var(--text); border-color: rgba(var(--accent-rgb), 0.5); background: rgba(var(--accent-rgb), 0.1); }
+.tiles { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.tile-value { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+.tiles .tile:not(.tile-link):hover { transform: none; border-color: var(--line); }
+.tile-dim { color: var(--muted); }
+.delta-up { color: var(--accent); }
+.delta-down { color: #ffb4b4; }
+.live-dot {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; vertical-align: middle;
+  background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite;
+}
+
+.chart-panel { margin-bottom: 22px; }
+.viz { position: relative; }
+.viz-legend { display: flex; gap: 18px; margin-bottom: 10px; font-size: 0.82rem; color: var(--muted); }
+.viz-legend li { display: flex; align-items: center; gap: 8px; }
+.viz-key { width: 14px; height: 3px; border-radius: 2px; }
+.viz-frame { position: relative; width: 100%; }
+.viz-frame svg { display: block; overflow: visible; }
+.viz-frame svg:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+.viz-grid { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }
+.viz-crosshair { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1; }
+.viz-tick { fill: var(--muted); font-size: 11px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.viz-tooltip {
+  position: absolute; top: 0; transform: translateX(-50%); pointer-events: none;
+  display: flex; flex-direction: column; gap: 4px; min-width: 140px;
+  padding: 10px 12px; border-radius: 10px; font-size: 0.8rem;
+  background: rgba(8, 13, 10, 0.95); border: 1px solid var(--line); box-shadow: 0 10px 30px -10px #000;
+}
+.viz-tooltip-title { color: var(--muted); font-size: 0.75rem; }
+.viz-tooltip-row { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+.viz-tooltip-row strong { color: var(--text); font-weight: 600; }
+.viz-line-key { width: 12px; height: 2px; border-radius: 1px; }
+.viz-table { margin-top: 14px; font-size: 0.85rem; }
+.viz-table summary { cursor: pointer; color: var(--muted); width: max-content; }
+.viz-table summary:hover { color: var(--text); }
+.viz-table table { width: 100%; margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.viz-table th, .viz-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); font-weight: 400; }
+.viz-table thead th { color: var(--muted); font-size: 0.75rem; }
+.viz-table td { text-align: right; }
+.viz-table thead th:not(:first-child) { text-align: right; }
+
+.breakdowns { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+.breakdown .panel-title { margin-bottom: 14px; }
+.breakdown-empty { color: var(--muted); font-size: 0.9rem; }
+.bars { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.bars li { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; align-items: center; gap: 12px; font-size: 0.88rem; }
+.bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { height: 14px; display: flex; align-items: center; }
+.bar-fill { height: 14px; background: var(--viz-1); border-radius: 0 4px 4px 0; transition: filter .2s; }
+.bars li:hover .bar-fill { filter: brightness(1.25); }
+.bar-value { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.82rem; min-width: 2ch; text-align: right; }
+.privacy-note { margin-top: 22px; color: var(--muted); font-size: 0.72rem; }

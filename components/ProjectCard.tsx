@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PointerEvent, useRef } from "react";
 import type { Project } from "@/lib/content";
 import { useInView } from "@/lib/hooks";
+import { track } from "@/lib/track-client";
 
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLElement>(null);
@@ -32,6 +33,7 @@ export default function ProjectCard({ project, index }: { project: Project; inde
           href={project.href}
           className="card-link"
           aria-label={`Open ${project.title}`}
+          onClick={() => track("project_click", { target: project.title })}
           {...(project.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
         >
           <span className="card-arrow" aria-hidden="true">↗</span>
@@ -55,7 +57,13 @@ export default function ProjectCard({ project, index }: { project: Project; inde
         ))}
       </ul>
       {project.githubUrl && (
-        <a href={project.githubUrl} className="card-source mono" target="_blank" rel="noopener noreferrer">
+        <a
+          href={project.githubUrl}
+          className="card-source mono"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("project_click", { target: `${project.title} (source)` })}
+        >
           View source ↗
         </a>
       )}
