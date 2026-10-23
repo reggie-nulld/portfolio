@@ -13,7 +13,7 @@ const NAV = [
   { href: "/admin/messages", label: "Messages", icon: "✉" },
 ];
 
-export default function Sidebar({ email }: { email: string }) {
+export default function Sidebar({ email, unread = 0 }: { email: string; unread?: number }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -53,6 +53,11 @@ export default function Sidebar({ email }: { email: string }) {
               {item.icon}
             </span>
             {item.label}
+            {item.href === "/admin/messages" && unread > 0 && (
+              <span className="nav-badge" aria-label={`${unread} unread`}>
+                {unread > 99 ? "99+" : unread}
+              </span>
+            )}
           </Link>
         ))}
       </nav>

@@ -50,6 +50,17 @@ In the admin:
 - **Dashboard**: visitors, page views and project clicks for the last 7, 30 or 90 days, with a
   daily traffic chart and top sources, countries, devices and browsers.
 
+- **Messages**: everything sent through the contact form, with unread counts, reply-by-email,
+  mark as read/unread and delete.
+
+**Email alerts (optional):** create a free account at [resend.com](https://resend.com), make an
+API key, and add it as `RESEND_API_KEY` (in `.env.local` and in Vercel). You'll get an email for
+every new message, and replying to it answers the sender. Until you verify your own domain in
+Resend, alerts can only go to the email address you signed up to Resend with.
+
+The contact form ignores obvious bots (a hidden trap field and a minimum fill time) and accepts
+at most 3 messages per sender, and 30 in total, per hour.
+
 Visits are counted by `app/api/track` without cookies and without storing IP addresses (a
 daily-rotating hash tells visitors apart). Bots and your own visits while signed in are skipped.
 Add `?ref=linkedin` (or `?utm_source=…`) to links you share to see them as a source.

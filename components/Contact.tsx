@@ -1,4 +1,5 @@
 import type { Social } from "@/lib/content";
+import ContactForm from "./ContactForm";
 import Reveal from "./Reveal";
 
 export default function Contact({ email, socials }: { email: string; socials: Social[] }) {
@@ -13,9 +14,10 @@ export default function Contact({ email, socials }: { email: string; socials: So
       <p className="contact-sub">
         My inbox is always open — whether it&apos;s a project, an opportunity, or just a hello.
       </p>
-      <a href={`mailto:${email}`} className="btn btn-primary btn-lg">
-        Say hello <span aria-hidden="true">→</span>
-      </a>
+      <ContactForm />
+      <p className="contact-alt">
+        Prefer email? <a href={`mailto:${email}`}>{email}</a>
+      </p>
       <div className="socials mono">
         {socials.map((s) => (
           <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">

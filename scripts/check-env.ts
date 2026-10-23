@@ -80,6 +80,14 @@ for (const key of REQUIRED) {
   if (problem) ok = false;
 }
 
+// Optional settings: reported, never a failure.
+{
+  const key = process.env.RESEND_API_KEY?.trim() ?? "";
+  if (!key) console.log("– RESEND_API_KEY not set (optional): no email alerts for contact form messages");
+  else if (!key.startsWith("re_")) console.log("! RESEND_API_KEY should start with re_ (copy it from resend.com → API Keys)");
+  else console.log("✓ RESEND_API_KEY");
+}
+
 // The project ID appears in both the API URL (https://<id>.supabase.co) and the database
 // username (postgres.<id>). A mismatch means the settings come from two different projects.
 function checkSameProject() {
